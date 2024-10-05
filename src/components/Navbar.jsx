@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { setPrompt } from '../counter/counterSlice'
-// export class Navbar extends Component {
 
 const Navbar = () => {
 
@@ -18,7 +17,6 @@ const Navbar = () => {
     dispatch(setPrompt(input.current.value))
   }
   
-  // render() {
   return (
     <div>
       <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top">
@@ -62,7 +60,6 @@ const Navbar = () => {
       </nav>
     </div>
   )
-  // }
 }
 
 export default Navbar

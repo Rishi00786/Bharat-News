@@ -49,20 +49,34 @@ const News = (props) => {
         return new_string;
     }
 
-    const particular=async(key)=>{
-                    setloading(true);           
-                    props.setProgress(10);
-                    let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apiKey}&page=${page}&pageSize=${props.pageSize}`;
-                    let data = await fetch(url);
-                    let parsedData = await data.json();
-                    // setloading(false)
-                    setarticles(parsedData.articles.filter(article =>
-                        (new RegExp(`\\b${key}\\b`, "i")).test(article.title) ||  (new RegExp(`\\b${key}\\b`, "i")).test(article.description) 
-                    ));
-                    props.setProgress(100);
-                    setloading(false);
-                    // console.log(parsedData.articles);
+    const particular = async (key) => {
+        setloading(true);
+        props.setProgress(10);
+        let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apiKey}&page=${page}&pageSize=${props.pageSize}`;
+        console.log(url)
+        
+        try {
+            let response = await fetch(url);
+            let parsedData = await response.json(); // Parse the JSON response
+    
+            // Check if articles are returned
+            if (parsedData.totalResults === 0) {
+                console.warn("No articles found for the given query parameters.");
+                setarticles([]); // Clear articles if none found
+            } else {
+                setarticles(parsedData.articles.filter(article =>
+                    (new RegExp(`\\b${key}\\b`, "i")).test(article.title) || (new RegExp(`\\b${key}\\b`, "i")).test(article.description)
+                ));
+            }
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        } finally {
+            props.setProgress(100);
+            setloading(false);
         }
+    };
+    
+    
 
         useEffect(() => {
             particular(prompt);

@@ -2,28 +2,16 @@
 import React, { useEffect, useState } from 'react'
 import NewItem from './NewItem'
 import Loading from './Loading';
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 import InfiniteScroll from 'react-infinite-scroll-component';
 import {countercontext} from '../../context/context';
-import { useSelector, useDispatch } from 'react-redux'
-import { setPrompt } from '../counter/counterSlice'
+import { useSelector } from 'react-redux'
 
 const News = (props) => {
 
     const prompt = useSelector((state) => state.counter.value)
-    const dispatch = useDispatch()
 
 
-    // static defaultProps = {
-    //     country: "in",
-    //     category: "general",
-    //     pageSize: 20
-    // }
-    // static propTypes = {
-    //     country: PropTypes.string,
-    //     category: PropTypes.string,
-    //     pageSize: PropTypes.number
-    // }
 
     const [articles, setarticles] = useState([])
     const [loading, setloading] = useState(false)
@@ -184,15 +172,11 @@ const News = (props) => {
                 }
 // }
 
-News.defaultProps = {
-    country: "in",
-    category: "general",
-    pageSize: 20
-}
-News.propTypes = {
-    country: PropTypes.string,
-    category: PropTypes.string,
-    pageSize: PropTypes.number
-}
+
+// News.propTypes = {
+//     country: PropTypes.string,
+//     category: PropTypes.string,
+//     pageSize: PropTypes.number
+// }
 
 export default News
